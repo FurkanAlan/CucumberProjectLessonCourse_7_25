@@ -8,4 +8,4 @@
 #    When User mouse over "categories"
 #    Then User mouse over "personal development"
 #    Then User mouse over "leadership Button"
-#    Then Verify user button is "clickable"
+#    Then Verify ser button is "clickable"
