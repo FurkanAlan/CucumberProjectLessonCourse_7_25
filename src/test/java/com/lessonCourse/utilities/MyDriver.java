@@ -92,7 +92,7 @@ public class MyDriver extends Constants {
         return DriverPool.get();
     }
 
-    public static void close() {
+    public static void quitBrowser() {
         DriverPool.get().quit();
         DriverPool.remove();
     }
