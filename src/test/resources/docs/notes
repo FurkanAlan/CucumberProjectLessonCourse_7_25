@@ -1,0 +1,35 @@
+ana runner classde plugin tagin icine rerun: tagiyle failed featureerin nereye save olucagini belirliyorsunuz. sonra fail run yapacak olan runneria da o txt file i features pathi olarak gosteriyorsunuz. sadece failleri run ediyor 
+
+https://www.coveros.com/regular-expressions-a-setup-for-cucumber-glue-code
+
+
+7/24/20 - Friday
+
+https://lessoncourse.com/home
+1. user story = Furkan
+User should be able to see search button, login, sign up, become an instructor, shopping cart is shown on the  site
+
+2. user story = Turker
+User should be able to click categories and see math in the academics section
+
+3. user story = Vahit
+User should be able to chose Leadership from dashboard and verify the page
+
+4. user story = Hilal
+User should be able to type in search box math and then click on the search button, verify that all the results contains
+ math in it
+
+5. user story = Omar
+User should be able to click on the login button and enter username and password, remember me button is clickable and
+forget password is clickable
+
+6. user story = Aysegul
+User should be able to click on the home button at the bottom of the page and verify user is in the home page
+
+7. user story = Mustafa
+User should be able to choose Turkce from languages section and verify that message is in Turkish
+
+8. user story = Furkan
+User should be able to hover over classes and see add to cart button
+
+
