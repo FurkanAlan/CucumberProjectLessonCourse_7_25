@@ -1,17 +1,29 @@
 package com.lessonCourse.stepDefinitions;
 
+import com.lessonCourse.pages.DashBoard;
 import com.lessonCourse.utilities.CommonMethods;
+import com.lessonCourse.utilities.PageInitializer;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
-public class DashBoardSteps extends CommonMethods {
+public class DashBoardSteps {
+    DashBoard dashBoard = new DashBoard();
 
-    @Given("User is in destination page")
-    public void user_is_in_destination_page() {
+    @Given("User test with {string} browser")
+    public void user_is_in_destination_page(String browser) {
+        if (browser.equals("chrome")) {
+//            ConfigurationReader.getProperty(browser);
+            System.setProperty("browser", "chrome");
+        } else {
+            System.setProperty("browser", "firefox");
+        }
     }
 
-    @Then("User should be able to see search button, login, sign up, become an instructor, shopping cart is shown on the  site")
-    public void user_should_be_able_to_see_search_button_login_sign_up_become_an_instructor_shopping_cart_is_shown_on_the_site() {
+
+    @Given("User should be able to see {string} is shown on the  site")
+    public void user_should_be_able_to_see_is_shown_on_the_site(String buttons) {
+        dashBoard.multipleChoice(buttons);
     }
+
 
 }
