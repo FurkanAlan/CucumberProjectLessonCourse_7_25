@@ -33,7 +33,7 @@ public class Hooks {
         }
         System.out.println("###########-THE END-###################");
         //after every test, we gonna close browser
-        MyDriver.close();
+        MyDriver.quitBrowser();
     }
 
 }

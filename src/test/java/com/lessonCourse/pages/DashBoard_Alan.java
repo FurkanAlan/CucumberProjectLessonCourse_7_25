@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class DashBoard  extends CommonMethods{
+public class DashBoard_Alan extends CommonMethods {
     @FindBy(xpath = "//div[@id='toolbar']//div//form//div//button//md-icon")
     public WebElement searchButton;
 
@@ -26,6 +26,14 @@ public class DashBoard  extends CommonMethods{
     @FindBy(xpath = "//div[@id='toolbar']//div//ngcart-summary//div//a//md-icon")
     public WebElement shoppingCart;
 
+    public void browserName(String browser) {
+        if (browser.equals("chrome")) {
+//            ConfigurationReader.getProperty(browser);
+            System.setProperty("browser", "chrome");
+        } else {
+            System.setProperty("browser", "firefox");
+        }
+    }
 
 
     public void multipleChoice(String buttonName) {

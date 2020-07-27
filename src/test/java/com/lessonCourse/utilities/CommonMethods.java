@@ -205,7 +205,7 @@ public class CommonMethods extends PageInitializer {
      */
     public static void moveTo(WebElement target) {
         Actions action = new Actions(MyDriver.get());
-        action.moveToElement(target);
+        action.moveToElement(target).build().perform();
     }
 
     /**
@@ -345,5 +345,12 @@ public class CommonMethods extends PageInitializer {
         return jsonFile;
     }
 
+    public static void slpMyDriver(int durationOfSleep){
+        try {
+            Thread.sleep(durationOfSleep);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
