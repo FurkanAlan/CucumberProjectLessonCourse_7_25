@@ -4,7 +4,6 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
-
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = "src/test/resources/features"
@@ -17,7 +16,7 @@ import org.junit.runner.RunWith;
         , dryRun = false
         , plugin = {"pretty", "html:target/html/cucumber-default", "json:target/cucumber.json", "rerun:target/failed.txt"}
 //        , monochrome = true
-//        , tags = {"@smoke"}
+     , tags = {"@turker"}
 )
 
 public class RunnerClass {

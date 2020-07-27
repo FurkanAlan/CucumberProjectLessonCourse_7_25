@@ -16,3 +16,11 @@ Feature:
       | Sign Up              |
       | Become An Instructor |
       | Shopping Cart        |
+
+@turker
+    Scenario: Findig Math under of Academics
+      Given User navigates to homepage
+      When User mouse over category button
+      Then User mouse over academics
+      Then User click on math button
+

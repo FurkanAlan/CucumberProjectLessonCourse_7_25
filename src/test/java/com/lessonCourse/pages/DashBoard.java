@@ -26,6 +26,29 @@ public class DashBoard  extends CommonMethods{
     @FindBy(xpath = "//div[@id='toolbar']//div//ngcart-summary//div//a//md-icon")
     public WebElement shoppingCart;
 
+    //Turker WEB ELEMENTS STARS FROM HERE
+
+    @FindBy(xpath = "//button[@aria-label='Categories']")
+    public WebElement categoriesBtn;
+
+    @FindBy(xpath = "(//div[contains(text(),'Academics')])[1]")
+    public WebElement academics;
+
+    @FindBy(xpath = "//div[@translate='CAT.ACA.MATH']")
+    public WebElement math;
+
+    public void categoriesBtnPage(){
+       moveTo(categoriesBtn);
+    }
+          public void academicspage() {
+          moveTo(academics);
+          }
+          public void mathpage() {
+           moveTo(math);
+           jsClick(math);
+
+          }
+
 
 
     public void multipleChoice(String buttonName) {

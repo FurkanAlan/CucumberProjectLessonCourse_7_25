@@ -205,7 +205,7 @@ public class CommonMethods extends PageInitializer {
      */
     public static void moveTo(WebElement target) {
         Actions action = new Actions(MyDriver.get());
-        action.moveToElement(target);
+        action.moveToElement(target).build().perform();
     }
 
     /**

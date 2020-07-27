@@ -5,6 +5,7 @@ import com.lessonCourse.utilities.CommonMethods;
 import com.lessonCourse.utilities.PageInitializer;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class DashBoardSteps {
     DashBoard dashBoard = new DashBoard();
@@ -25,5 +26,30 @@ public class DashBoardSteps {
         dashBoard.multipleChoice(buttons);
     }
 
+       // Turker-Step defs starts from here
+    @Given("User navigates to homepage")
+    public void user_navigates_to_homepage() {
 
+    }
+
+    @When("User mouse over category button")
+    public void user_mouse_over_category_button() throws InterruptedException {
+        Thread.sleep(3000);
+        dashBoard.categoriesBtnPage();
+
+    }
+
+    @Then("User mouse over academics")
+    public void user_mouse_over_academics() throws InterruptedException {
+        Thread.sleep(3000);
+        dashBoard.academicspage();
+
+    }
+
+    @Then("User click on math button")
+    public void user_click_on_math_button() throws InterruptedException {
+        Thread.sleep(3000);
+        dashBoard.mathpage();
+
+    }
 }
