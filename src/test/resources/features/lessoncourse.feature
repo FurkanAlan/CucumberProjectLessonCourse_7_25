@@ -16,3 +16,4 @@ Feature:
       | Sign Up              |
       | Become An Instructor |
       | Shopping Cart        |
+  #User should be able to click on the home button at the bottom of the page and verify user is in the home page
