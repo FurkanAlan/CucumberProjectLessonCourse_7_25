@@ -16,8 +16,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class CommonMethods extends PageInitializer {
-    public CommonMethods(){
+public class CommonMethods {
+    public static String jsonFile;
+
+    public CommonMethods() {
         PageFactory.initElements(MyDriver.get(), this);
     }
 
@@ -98,31 +100,6 @@ public class CommonMethods extends PageInitializer {
         js.executeScript("window.scrollBy(0,-" + pixel + ")");
     }
 
-    /**
-     * This method will take screenshot and save it with the given file name
-     *
-     * @param fileName
-     */
-    public static byte[] takeScreenShot(String fileName) {
-
-        Date date=new Date();
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy_MMdd_HHmmss");
-        String timeStamp=sdf.format(date.getTime());
-
-        TakesScreenshot ts = (TakesScreenshot) MyDriver.get();
-
-        byte[] picture=ts.getScreenshotAs(OutputType.BYTES);
-
-        File screen=ts.getScreenshotAs(OutputType.FILE);
-        String scrshotFile = Constants.SCREENSHOTS_FILEPATH + fileName + "_" + getTime() + ".png";
-        try {
-            FileUtils.copyFile(screen, new File(scrshotFile));
-        } catch (IOException e) {
-            System.out.println("Cannot take screenshot");
-        }
-        return picture;
-    }
-
 //	/**
 //	 * will take screenshot
 //	 * @param fileName
@@ -136,6 +113,31 @@ public class CommonMethods extends PageInitializer {
 // 			e.printStackTrace();
 // 		}
 //	}
+
+    /**
+     * This method will take screenshot and save it with the given file name
+     *
+     * @param fileName
+     */
+    public static byte[] takeScreenShot(String fileName) {
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MMdd_HHmmss");
+        String timeStamp = sdf.format(date.getTime());
+
+        TakesScreenshot ts = (TakesScreenshot) MyDriver.get();
+
+        byte[] picture = ts.getScreenshotAs(OutputType.BYTES);
+
+        File screen = ts.getScreenshotAs(OutputType.FILE);
+        String scrshotFile = Constants.SCREENSHOTS_FILEPATH + fileName + "_" + getTime() + ".png";
+        try {
+            FileUtils.copyFile(screen, new File(scrshotFile));
+        } catch (IOException e) {
+            System.out.println("Cannot take screenshot");
+        }
+        return picture;
+    }
 
     /**
      * This method will send text to given webelement
@@ -268,7 +270,62 @@ public class CommonMethods extends PageInitializer {
     }
 
     /**
+     * This method select an option in drop down list by value attribute
+     *
+     * @param element
+     * @param value
+     */
+    public static void selectDDText(WebElement element, String value) {
+        Select select = new Select(element);
+        List<WebElement> options = select.getOptions();
+
+        boolean isFound = false;
+
+        for (WebElement option : options) {
+            if (option.getText().equals(value)) {
+                select.selectByVisibleText(value);
+                isFound = true;
+                break;
+            } else if (option.getAttribute("value").contains(value)) {
+                select.selectByValue(value);
+                isFound = true;
+                break;
+            }
+        }
+
+
+        if (!isFound) {
+            System.out.println(value + " is not found in the Dropdown List");
+        }
+
+    }
+
+    /**
+     * This methods receives the filename of the jSon file and returns it in String format
+     *
+     * @param fileName
+     * @return
+     */
+    public static String readJson(String fileName) {
+        try {
+            jsonFile = new String(Files.readAllBytes(Paths.get(fileName)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return jsonFile;
+    }
+
+    public static void slpMyDriver(int durationOfSleep) {
+        try {
+            Thread.sleep(durationOfSleep);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * This methods selects date from the calender which is defined in the HRMS application
+     *
      * @param element
      * @param year
      * @param month
@@ -284,7 +341,7 @@ public class CommonMethods extends PageInitializer {
         Select mSelect = new Select(mnth);
         mSelect.selectByVisibleText(month);
 
-        WebElement years= MyDriver.get().findElement(By.xpath("//select[@class='ui-datepicker-year']"));
+        WebElement years = MyDriver.get().findElement(By.xpath("//select[@class='ui-datepicker-year']"));
         Select ySelect = new Select(years);
         ySelect.selectByVisibleText(year);
 
@@ -296,60 +353,6 @@ public class CommonMethods extends PageInitializer {
                 dy.click();
                 break;
             }
-        }
-    }
-
-    /**
-     * This method select an option in drop down list by value attribute
-     *
-     * @param element
-     * @param value
-     */
-    public static void selectDDText(WebElement element, String value) {
-        Select select = new Select(element);
-        List<WebElement> options=select.getOptions();
-
-        boolean isFound=false;
-
-        for(WebElement option:options) {
-            if(option.getText().equals(value)) {
-                select.selectByVisibleText(value);
-                isFound=true;
-                break;
-            }else if(option.getAttribute("value").contains(value)) {
-                select.selectByValue(value);
-                isFound=true;
-                break;
-            }
-        }
-
-
-        if(!isFound) {
-            System.out.println(value+" is not found in the Dropdown List");
-        }
-
-    }
-
-    public static String jsonFile;
-    /**
-     * This methods receives the filename of the jSon file and returns it in String format
-     * @param fileName
-     * @return
-     */
-    public static String readJson(String fileName) {
-        try {
-            jsonFile = new String(Files.readAllBytes(Paths.get(fileName)));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return jsonFile;
-    }
-
-    public static void slpMyDriver(int durationOfSleep){
-        try {
-            Thread.sleep(durationOfSleep);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 

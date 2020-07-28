@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 public class DashBoard_Mustafa extends CommonMethods {
 
 
-    @FindBy(xpath = "(//span[contains(text(), 'English')])[3]")
+    @FindBy(xpath = "//md-input-container[@id='sLang']//span[2]")
     public WebElement languageOptions;
 
 

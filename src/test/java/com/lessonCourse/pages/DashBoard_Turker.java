@@ -49,7 +49,7 @@ public class DashBoard_Turker extends CommonMethods {
 
     public void assertionMath() {
         String actualTitle = mathSection.getText();
-        String expectedTitle = "Mat";
+        String expectedTitle = "Math";
         Assert.assertEquals(actualTitle,expectedTitle);
     }
 }
