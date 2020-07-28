@@ -85,18 +85,106 @@
         <!--        </dependency>-->
 
 
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>4.0.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.21</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>4.0.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
+    <!--    <build>-->
+    <!--        <plugins>-->
+    <!--            <plugin>-->
+    <!--                <groupId>org.apache.maven.plugins</groupId>-->
+    <!--                <artifactId>maven-surefire-plugin</artifactId>-->
+    <!--                <version>3.0.0-M4</version>-->
+    <!--                <configuration>-->
+    <!--                    <includes>-->
+    <!--                        <include>**/*Runner*.java</include>-->
+    <!--                    </includes>-->
+    <!--                </configuration>-->
+    <!--            </plugin>-->
+
+    <!--            <plugin>-->
+    <!--                <groupId>net.masterthought</groupId>-->
+    <!--                <artifactId>maven-cucumber-reporting</artifactId>-->
+    <!--                <version>5.0.0</version>-->
+    <!--                <executions>-->
+    <!--                    <execution>-->
+    <!--                        <id>execution</id>-->
+    <!--                        <phase>test</phase>-->
+    <!--                        <goals>-->
+    <!--                            <goal>generate</goal>-->
+    <!--                        </goals>-->
+    <!--                        <configuration>-->
+    <!--                            <projectName>LessonCourse</projectName>-->
+    <!--                            &lt;!&ndash; output directory for the generated report &ndash;&gt;-->
+    <!--                            <outputDirectory>${project.build.directory}</outputDirectory>-->
+    <!--                            &lt;!&ndash; optional, defaults to outputDirectory if not specified &ndash;&gt;-->
+    <!--                            <inputDirectory>${project.build.directory}</inputDirectory>-->
+    <!--                            <jsonFiles>-->
+    <!--                                &lt;!&ndash; supports wildcard or name pattern &ndash;&gt;-->
+    <!--                                <param>**/*.json</param>-->
+    <!--                            </jsonFiles>-->
+
+    <!--                        </configuration>-->
+    <!--                    </execution>-->
+    <!--                </executions>-->
+    <!--            </plugin>-->
+
+
+    <!--            <plugin>-->
+    <!--                <groupId>org.apache.maven.plugins</groupId>-->
+    <!--                <artifactId>maven-compiler-plugin</artifactId>-->
+    <!--                <configuration>-->
+    <!--                    <source>7</source>-->
+    <!--                    <target>7</target>-->
+    <!--                </configuration>-->
+    <!--            </plugin>-->
+    <!--        </plugins>-->
+    <!--    </build>-->
+
+
     <build>
+
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M4</version>
+                <version>3.0.0-M5</version>
                 <configuration>
+                    <runOrder>Alphabetical</runOrder>
                     <includes>
+                        <!-- *Runner means, it will include runner classes name ends with runner.-->
+                        <!--                        biz burada testleri Alphabetical order ile dahil ettigimiz icin sirasiyla <include> olan -->
+                        <!--                        testleri calsitiracak-->
                         <include>**/*Runner*.java</include>
+                        <include>**/*Failed*.java</include>
+                        <!--                        test fail oldugunda onun durmasini engel oluyor asagidaki ifade-->
                     </includes>
+                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
 
@@ -107,12 +195,12 @@
                 <executions>
                     <execution>
                         <id>execution</id>
-                        <phase>test</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <projectName>LessonCourse</projectName>
+                            <projectName>CucumberProjectExample1OrangeHRM_07_20_20</projectName>
                             <!-- output directory for the generated report -->
                             <outputDirectory>${project.build.directory}</outputDirectory>
                             <!-- optional, defaults to outputDirectory if not specified -->
@@ -121,7 +209,6 @@
                                 <!-- supports wildcard or name pattern -->
                                 <param>**/*.json</param>
                             </jsonFiles>
-
                         </configuration>
                     </execution>
                 </executions>
@@ -130,11 +217,77 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>7</source>
-                    <target>7</target>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
+
         </plugins>
+
     </build>
+
+    <profiles>
+        <profile>
+            <id>features</id>
+            <build>
+
+                <plugins>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.0.0-M5</version>
+                        <configuration>
+                            <parallel>method</parallel>
+                            <parallelMavenExecution>true</parallelMavenExecution>
+                            <!--<threadCount>5</threadCount>, bu kod bize 5 tane browser acacak ayni anda, 5 tane paralel
+                            test, birde paralel testi calistirmak icin mvn commanda dan calistrilmali, bu ayni zamanda runner
+                             class a da bagli-->
+                            <perCoreThreadCount>true</perCoreThreadCount>
+                            <!--                            .feature sayisi kadar threadCountMethods sayi olmali-->
+                            <threadCountMethods>10</threadCountMethods>
+
+                            <includes>
+                                <!-- *Runner means, it will include runner classes name ends with runner.-->
+                                <!--                                konsol komutu olarak mvn test -P ParallelRunner yada  oluyor-->
+                                <!--                                <include>**/ParallelRunner.java</include>-->
+                                <!--                        test fail oldugunda onun durmasini engel oluyor asagidaki ifade-->
+                                <testFailureIgnore>true</testFailureIgnore>
+                            </includes>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>net.masterthought</groupId>
+                        <artifactId>maven-cucumber-reporting</artifactId>
+                        <version>5.0.0</version>
+                        <executions>
+                            <execution>
+                                <id>execution</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <projectName>CucumberProjectExample1OrangeHRM_07_20_20</projectName>
+                                    <!-- output directory for the generated report -->
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <!-- optional, defaults to outputDirectory if not specified -->
+                                    <inputDirectory>${project.build.directory}</inputDirectory>
+                                    <jsonFiles>
+                                        <!-- supports wildcard or name pattern -->
+                                        <param>**/*.json</param>
+                                    </jsonFiles>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+
+            </build>
+
+        </profile>
+    </profiles>
 
 </project>

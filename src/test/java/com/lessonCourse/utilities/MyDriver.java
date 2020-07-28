@@ -17,9 +17,9 @@ import org.openqa.selenium.safari.SafariDriver;
 import java.net.URL;
 
 public class MyDriver extends Constants {
-    public static ThreadLocal<WebDriver> DriverPool = new ThreadLocal<>();
+    private static ThreadLocal<WebDriver> DriverPool = new ThreadLocal<>();
 
-    public MyDriver() {
+    private MyDriver() {
     }
 
     public static WebDriver get() {
@@ -92,7 +92,7 @@ public class MyDriver extends Constants {
         return DriverPool.get();
     }
 
-    public static void close() {
+    public static void quitBrowser() {
         DriverPool.get().quit();
         DriverPool.remove();
     }
